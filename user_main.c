@@ -15,6 +15,7 @@
 #include "osapi.h"
 #include "gpio.h"
 #include "espconn.h"
+#include "user_config.h"
 #include "debug.h"
 
 LOCAL os_timer_t the_timer;
@@ -65,7 +66,7 @@ uint32 ICACHE_FLASH_ATTR user_rf_cal_sector_set(void)
 
 // Timer function 
 LOCAL void ICACHE_FLASH_ATTR timer_function (void) {
-  poll_function();
+  poll_function(&udp_espconn);
 }
 
 // This is the system init done callback function.
@@ -102,7 +103,8 @@ LOCAL void ICACHE_FLASH_ATTR init_done_callback(void)
 }
 
 // Entry function ... execution starts here. Remember this ain't like regular
-// c main function!
+// c main function! Use the system init done callback function to do your
+// setup AFTER the SoC has done all its initialization.
 void ICACHE_FLASH_ATTR user_init (void) {
   
   system_init_done_cb(init_done_callback);

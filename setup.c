@@ -7,7 +7,7 @@
 #include "debug.h"
 
 // Setup GPIO2 
-void ICACHE_FLASH_ATTR setup_gpio ()
+void ICACHE_FLASH_ATTR setup_gpio (void)
 {
   // Initialize the GPIO sub-system
   gpio_init();
