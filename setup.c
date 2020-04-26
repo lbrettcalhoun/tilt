@@ -54,9 +54,12 @@ void ICACHE_FLASH_ATTR setup_wifi (void) {
   // itself a pointer (look above where you defined it). Also notice how we have to
   // null the SSID and password pointers or you will have junk left over from the
   // previous run.  We use os_bzero to null these pointers (aka char arrays).
-  config.ssid_len = 8;
+  // Don't forget to use the exact same number of characters for ssid_len and os_memcpy
+  // as the number of characters in WIFI_SSID. Otherwise you'll end up with an 
+  // SSID like this: WHATEVER\x00!
+  config.ssid_len = 7;
   os_bzero(&config.ssid, 32);
-  os_memcpy(&config.ssid, SSID, 8);
+  os_memcpy(&config.ssid, SSID, 7);
   os_bzero(&config.password, 64);
   os_memcpy(&config.password, PASSWORD, 10);
   config.authmode = AUTH_WPA2_PSK;
